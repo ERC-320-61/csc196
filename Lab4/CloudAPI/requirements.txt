@@ -1,0 +1,17 @@
+# Django core framework
+Django
+
+# Django REST framework
+djangorestframework
+
+# PostgreSQL database adapter for Python
+psycopg2
+
+# Asynchronous server gateway interface references
+asgiref
+
+# Time zone and timezone-related utilities
+pytz
+
+# SQL parsing utilities
+sqlparse
