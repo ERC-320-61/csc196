@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-oi1f#wh@wv30=r@s6)v0bv14btb_jxw==(-9p&@(4g46$)$%kl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',  # Ensure you have Django REST framework installed
 
     'calculator_lab',
+    'apis',             # Dedicated app to handle APIs
 ]
 
 MIDDLEWARE = [
