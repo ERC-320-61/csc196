@@ -1,32 +1,31 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from calculator_lab.models import Calculation
-from .serializers import CalculationSerializer
-from rest_framework.decorators import api_view
+# apis/views.py
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-import ast
+from calculator_lab.services import calculate
 from django.http import HttpResponse
 
-
 ''' HOME '''
+
+
 def home(request):
     return HttpResponse("Welcome to the Calculator API")
 
 
-class CalculationViewSet(viewsets.ModelViewSet):
-    queryset = Calculation.objects.all()
-    serializer_class = CalculationSerializer
+class CalculationView(APIView):
+    permission_classes = [IsAuthenticated]
 
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        if not all(key in data for key in ('num1', 'num2', 'operation')):
+            return Response({"error": "Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def calculate(request):
-    expression = request.data.get('expression')
-    try:
-        # Evaluate the expression safely
-        result = eval(ast.literal_eval(expression))
-        calculation = Calculation.objects.create(expression=expression, result=result)
-        serializer = CalculationSerializer(calculation)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        num1 = data['num1']
+        num2 = data['num2']
+        operation = data['operation']
+
+        result, error = calculate(num1, num2, operation)
+        if error:
+            return Response({"error": error}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"result": result}, status=status.HTTP_200_OK)

@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # Ensure you have Django REST framework installed
 
+    # CUSTOM BELOW:
+    'rest_framework',  # Ensure you have Django REST framework installed
     'calculator_lab',
     'apis',             # Dedicated app to handle APIs
 ]
@@ -51,6 +52,28 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # CUSTOM BELOW:
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+# Add CORS configuration (customize as needed)
+CORS_ALLOWED_ORIGINS = [
+    "https://tigriscentre.net",
+    "https://www.tigriscentre.net",
+    # Include local development URLs if needed
+    "http://localhost:3000",  # React Native local development
+    "http://127.0.0.1:3000",  # React Native local development
 ]
 
 ROOT_URLCONF = 'csc196.urls'

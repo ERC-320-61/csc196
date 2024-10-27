@@ -1,46 +1,80 @@
+# calculator_lab/tests.py
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
-from .models import Calculation
 
 
-class CalculationTestCase(TestCase):
-
+class CalculatorAPITestCase(TestCase):
     def setUp(self):
-        # This method will run before any test case.
         self.client = APIClient()
-        self.calculate_url = '/api/calculate/'
+        self.url = '/api/calculator/'
 
-    def test_create_calculation(self):
-        # Payload for the test
-        payload = {
-            "expression": "'2 + 3'"
+    def test_addition(self):
+        data = {
+            'num1': 10,
+            'num2': 5,
+            'operation': 'add'
         }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['result'], 15.0)
 
-        # Send a POST request to the calculate endpoint
-        response = self.client.post(self.calculate_url, payload, format='json')
-
-        # Check that the response status code is 201 (Created)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        # Check that the response data contains the correct result
+    def test_subtraction(self):
+        data = {
+            'num1': 10,
+            'num2': 5,
+            'operation': 'subtract'
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['result'], 5.0)
 
-        # Check that a new calculation record was created
-        self.assertEqual(Calculation.objects.count(), 1)
-        self.assertEqual(Calculation.objects.get().expression, "'2 + 3'")
-
-    def test_invalid_expression(self):
-        # Payload for the test with invalid expression
-        payload = {
-            "expression": "'2 / 0'"  # This will raise an error
+    def test_multiplication(self):
+        data = {
+            'num1': 10,
+            'num2': 5,
+            'operation': 'multiply'
         }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['result'], 50.0)
 
-        # Send a POST request to the calculate endpoint
-        response = self.client.post(self.calculate_url, payload, format='json')
+    def test_division(self):
+        data = {
+            'num1': 10,
+            'num2': 5,
+            'operation': 'divide'
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['result'], 2.0)
 
-        # Check that the response status code is 400 (Bad Request)
+    def test_division_by_zero(self):
+        data = {
+            'num1': 10,
+            'num2': 0,
+            'operation': 'divide'
+        }
+        response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['error'], "Division by zero")
 
-        # Check that no new calculation record was created
-        self.assertEqual(Calculation.objects.count(), 0)
+    def test_invalid_operation(self):
+        data = {
+            'num1': 10,
+            'num2': 5,
+            'operation': 'invalid'
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['error'], "Unsupported operation")
+
+    def test_invalid_input(self):
+        data = {
+            'num1': 'a',
+            'num2': 5,
+            'operation': 'add'
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['error'], "Invalid number format")

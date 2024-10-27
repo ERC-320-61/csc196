@@ -15,3 +15,9 @@ pytz
 
 # SQL parsing utilities
 sqlparse
+
+# Token based authentication
+djangorestframework-simplejwt
+
+# Middleware for handling Cross-Origin Resource Sharing (CORS) in Django applications`
+django-cors-headers
