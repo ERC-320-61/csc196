@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 // Data models
-data class CalculationRequest(val num1: Int, val num2: Int, val operation: String)
+data class CalculationRequest(val num1: Double, val num2: Double, val operation: String)
 data class CalculationResponse(val result: Double?, val error: String?)
 data class TokenResponse(val access: String, val refresh: String)
 
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
 
         // Initialize Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/api/")
+            .baseUrl("http://52.36.44.47:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -92,7 +91,7 @@ fun AdditionApp(modifier: Modifier = Modifier, token: String?) {
     var isLoading by remember { mutableStateOf(false) }
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8000/api/")
+        .baseUrl("http://52.36.44.47:8000/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -129,8 +128,8 @@ fun AdditionApp(modifier: Modifier = Modifier, token: String?) {
 
         Button(
             onClick = {
-                val number1 = num1.toIntOrNull()
-                val number2 = num2.toIntOrNull()
+                val number1 = num1.toDoubleOrNull()
+                val number2 = num2.toDoubleOrNull()
                 if (number1 != null && number2 != null && token != null) {
                     isLoading = true
                     error = null
