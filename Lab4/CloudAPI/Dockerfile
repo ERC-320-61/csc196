@@ -1,7 +1,7 @@
-# Use the official Python image from the DockerHub
+# Use the official Python image from DockerHub with slim version specified
 FROM python:3.12-slim
 
-# Set environment variables to prevent Python from writing .pyc files and for buffer output directly
+# Set environment variables to prevent Python from writing .pyc files and buffer output directly
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -10,11 +10,16 @@ WORKDIR /code
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y gcc python3-dev musl-dev \
-    && apt-get clean
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       python3-dev \
+       libpq-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt /code/
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files into the Docker image

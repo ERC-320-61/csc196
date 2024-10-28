@@ -13,3 +13,14 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+
+# Ignore node_modules
+node_modules/
+
+# Ignore IDE-specific files (optional)
+.idea/
+.vscode/
+
+# Ignore build output (optional)
+/build/

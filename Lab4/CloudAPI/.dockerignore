@@ -1,0 +1,21 @@
+# Django ignore patterns
+
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+.env
+*.log
+
+# Django specific
+db.sqlite3
+/media
+/node_modules
+
+# Ignore local Git repository
+.git

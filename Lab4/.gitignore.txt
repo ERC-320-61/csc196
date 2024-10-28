@@ -1,0 +1,133 @@
+# Node.js / React Native
+node_modules/
+yarn-error.log
+.yarn-integrity
+.expo/
+.expo-shared/
+dist/
+build/
+*.apk
+*.aab
+*.keystore
+*.lock
+
+# macOS specific files
+.DS_Store
+
+# IDE / Editor specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Android Studio / Xcode files
+*.iml
+.gradle/
+*.xml
+!gradle-wrapper.jar
+**/gradlew
+**/gradlew.bat
+**/gradle-wrapper.properties
+*.pbxproj
+ios/Pods/
+ios/Podfile.lock
+ios/build/
+ios/DerivedData/
+*.hmap
+*.xcuserdatad
+*.xccheckout
+*.xcscmblueprint
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Django specific
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+.env
+*.env
+*.pyo
+*.egg-info/
+*.eggs/
+*.venv/
+venv/
+ENV/
+env/
+*pyvenv.cfg
+.Python
+.mypy_cache/
+celerybeat-schedule
+
+# Django logs and other generated files
+*.log
+*.pot
+local_settings.py
+
+# Static and media files
+staticfiles/
+media/
+static/
+uploads/
+
+# Docker specific
+.docker/
+docker-compose.yml
+docker-compose.override.yml
+
+# General
+*.log
+*.pyc
+*.pyo
+.env
+__pycache__/
+.DS_Store
+node_modules/
+.idea/
+.vscode/
+*.swp
+*.swo
+venv/
+ENV/
+env/
+
+# Watchman (for React Native)
+/mobile_react/.watchmanconfig
+# Build output (for React Native)
+/mobile_react/android/
+/mobile_react/ios/build/
+/mobile_react/ios/Pods/
+/mobile_react/ios/Podfile.lock
+# Xcode specific (for React Native)
+/mobile_react/ios/*.mode1v3
+/mobile_react/ios/*.pbxuser
+/mobile_react/ios/xcuserdata
+/mobile_react/ios/xcshareddata
+/mobile_react/ios/*.moved-aside
+/mobile_react/ios/.hmap
+/mobile_react/ios/*.ipa
+/mobile_react/ios/*.DS_Store
+# Android Studio specific (for React Native)
+/mobile_react/android/app/debug
+/mobile_react/android/app/release
+/mobile_react/android/build
+/mobile_react/android/*.iml
+/mobile_react/android/.gradle
+/mobile_react/android/.idea
+/mobile_react/android/local.properties
+
+# Environment specific (Django)
+/django_rest/.env
+/django_rest/db.sqlite3
+/django_rest/media/
+/django_rest/staticfiles/
+/django_rest/__pycache__/
+/django_rest/*.log
+/django_rest/*.sqlite3
+/django_rest/static/
+# Uncomment if you use migrations
+# /django_rest/**/migrations/
