@@ -1,6 +1,11 @@
+// Module-level build.gradle.kts
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // Apply the Google services plugin for Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -50,7 +55,17 @@ android {
 }
 
 dependencies {
+    // Firebase BoM for managing Firebase versions
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
 
+    // Add Firebase Analytics as an example
+    implementation("com.google.firebase:firebase-analytics")
+
+    // Add any other Firebase services you need
+    implementation("com.google.firebase:firebase-auth")
+    // implementation("com.google.firebase:firebase-firestore")
+
+    // Existing dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -61,6 +76,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.appcompat)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
