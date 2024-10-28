@@ -22,4 +22,6 @@ djangorestframework-simplejwt
 # Middleware for handling Cross-Origin Resource Sharing (CORS) in Django applications`
 django-cors-headers
 
+# For reading from enviornment files
+python-decouple
 
