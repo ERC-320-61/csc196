@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,11 +42,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Temporarily hardcode the username and password for testing
-        val username = "tester"  // Replace with your actual username
-        val password = "testpass123"  // Replace with your actual password
-
-        Log.d("MainActivity", "Using hardcoded Username: $username, Password: $password")
+        // Retrieve credentials using TokenUtil
+        val (username, password) = TokenUtil.getCredentials(this)
+        Log.d("MainActivity", "Using Username: $username")
 
         // Initialize Retrofit
         val retrofit = Retrofit.Builder()
@@ -87,7 +86,7 @@ class MainActivity : ComponentActivity() {
 fun AdditionApp(modifier: Modifier = Modifier, token: String?) {
     var num1 by remember { mutableStateOf("") }
     var num2 by remember { mutableStateOf("") }
-    var operation by remember { mutableStateOf("add") }
+    var operation by remember { mutableStateOf("add") } // Hardcoded to "add" for simplicity
     var result by remember { mutableStateOf<Double?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }

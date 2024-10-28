@@ -1,28 +1,20 @@
 package com.example.calculator
 
 import android.content.Context
-import android.util.Log
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
 object TokenUtil {
-    fun getUsername(context: Context): String {
-        context.assets.open("user.txt").use { inputStream ->
-            BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8)).use { reader ->
-                val username = reader.readText().trim()  // Remove any extra whitespace or newlines
-                Log.d("TokenUtil", "Username read: $username")  // Log the username for verification
-                return username
-            }
-        }
+    fun getAccessToken(context: Context): String {
+        return context.assets.open("auth_token.txt").bufferedReader().use { it.readText().trim() }
     }
 
-    fun getPassword(context: Context): String {
-        context.assets.open("pw.txt").use { inputStream ->
-            BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8)).use { reader ->
-                val password = reader.readText().trim()  // Remove any extra whitespace or newlines
-                Log.d("TokenUtil", "Password read: $password")  // Log the password for verification
-                return password
-            }
-        }
+    fun getCredentials(context: Context): Pair<String, String> {
+        val inputStream = context.assets.open("credentials.txt")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val credentials = bufferedReader.use { it.readLines() }
+        val username = credentials.find { it.startsWith("username=") }?.split("=")?.get(1) ?: ""
+        val password = credentials.find { it.startsWith("password=") }?.split("=")?.get(1) ?: ""
+        return Pair(username, password)
     }
 }
