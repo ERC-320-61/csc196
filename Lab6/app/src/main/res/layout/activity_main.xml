@@ -1,0 +1,284 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Red Title Bar -->
+    <View
+        android:id="@+id/titleBar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#FF0000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Pizza Place"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/titleBar"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <!-- Pizza Image -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="202dp"
+        android:layout_height="156dp"
+        android:contentDescription="Pizza Image"
+        android:src="@drawable/pizza"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+    <!-- Green Bar for Pizza Size Label -->
+
+    <!-- Pizza Size Label -->
+    <View
+        android:id="@+id/pizzaSizeBar"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="#00FF00"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="232dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Pizza Size:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pizzaSizeBar" />
+
+    <!-- Pizza Size RadioGroup -->
+    <RadioGroup
+        android:id="@+id/PizzaSizeRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView3">
+
+        <RadioButton
+            android:id="@+id/smallpizza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small ($5)" />
+
+        <RadioButton
+            android:id="@+id/mediumpizza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium ($7)" />
+
+        <RadioButton
+            android:id="@+id/largepizza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Large ($9)" />
+    </RadioGroup>
+
+    <!-- Green Bar for Cheese Label -->
+
+    <!-- Cheese Label -->
+
+    <!-- Cheese RadioGroup -->
+
+    <View
+        android:id="@+id/cheeseBar"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="#00FF00"
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <TextView
+        android:id="@+id/ChooseCheeze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Cheese"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="308dp" />
+
+    <RadioGroup
+        android:id="@+id/CheeseRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ChooseCheeze">
+
+        <RadioButton
+            android:id="@+id/MozzarellaRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mozzarella" />
+
+        <RadioButton
+            android:id="@+id/CheddarRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cheddar" />
+    </RadioGroup>
+
+    <!-- Green Bar for Sauce Label -->
+
+    <!-- Sauce Label -->
+
+    <!-- Sauce RadioGroup -->
+
+    <View
+        android:id="@+id/sauceBar"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="#00FF00"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="379dp" />
+
+    <TextView
+        android:id="@+id/ChooseSauce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Sauce"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="380dp" />
+
+    <RadioGroup
+        android:id="@+id/SauceRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ChooseSauce">
+
+        <RadioButton
+            android:id="@+id/MarinaraRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marinara" />
+
+        <RadioButton
+            android:id="@+id/PestoRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pesto" />
+    </RadioGroup>
+
+    <!-- Green Bar for Toppings Label -->
+
+    <!-- Toppings Label -->
+
+    <!-- Toppings Checkboxes -->
+
+    <View
+        android:id="@+id/toppingsBar"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="#00FF00"
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="476dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Toppings:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="477dp" />
+
+    <CheckBox
+        android:id="@+id/PepperoniCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pepperoni ($2)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView4" />
+
+    <CheckBox
+        android:id="@+id/SalamiCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salami ($2)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PepperoniCheckBox" />
+
+    <CheckBox
+        android:id="@+id/SausageCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sausage ($2)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SalamiCheckBox" />
+
+    <CheckBox
+        android:id="@+id/OnionsCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Onions ($1)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/PepperoniCheckBox" />
+
+    <CheckBox
+        android:id="@+id/OlivesCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Olives ($1)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/OnionsCheckBox" />
+
+    <CheckBox
+        android:id="@+id/JalapenosCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jalapenos ($1)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/OlivesCheckBox" />
+
+    <!-- Red Bar Behind Order Button -->
+    <View
+        android:id="@+id/orderBar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#FF0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Order Button -->
+    <Button
+        android:id="@+id/orderbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:onClick="onPlaceOrderButtonClicked"
+        android:text="Place Your Order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
