@@ -2,6 +2,7 @@ package com.example.lab5
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import android.widget.RadioButton
@@ -142,9 +143,22 @@ class MainActivity : AppCompatActivity() {
         db.collection("orders")
             .add(order)
             .addOnSuccessListener { documentReference ->
-                // Log the document ID on successful save and show a confirmation toast
+                // Log the document ID on successful save
                 Log.d("MainActivity", "Order saved with ID: ${documentReference.id}")
-                Toast.makeText(this, "Order placed!", Toast.LENGTH_SHORT).show()
+
+                // Inflate the custom toast layout
+                val inflater = LayoutInflater.from(this)
+                val layout = inflater.inflate(R.layout.custom_toast, null)
+
+                // Set the text for the toast message
+                val toastText = layout.findViewById<TextView>(R.id.toast_text)
+                toastText.text = "Order placed!"
+
+                // Create and show the custom toast
+                val toast = Toast(applicationContext)
+                toast.duration = Toast.LENGTH_SHORT
+                toast.view = layout
+                toast.show()
             }
             .addOnFailureListener { e ->
                 // Log error and show a failure toast if saving fails

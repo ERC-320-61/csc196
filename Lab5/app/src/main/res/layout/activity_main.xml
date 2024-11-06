@@ -71,9 +71,6 @@
     </RadioGroup>
 
     <!-- Cheese Label -->
-
-    <!-- Cheese RadioGroup -->
-
     <TextView
         android:id="@+id/ChooseCheeze"
         android:layout_width="wrap_content"
@@ -86,6 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/PizzaSizeRadio" />
 
+    <!-- Cheese RadioGroup -->
     <RadioGroup
         android:id="@+id/CheeseRadioGroup"
         android:layout_width="wrap_content"
@@ -109,9 +107,6 @@
     </RadioGroup>
 
     <!-- Sauce Label -->
-
-    <!-- Sauce RadioGroup -->
-
     <TextView
         android:id="@+id/ChooseSauce"
         android:layout_width="wrap_content"
@@ -124,6 +119,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CheeseRadioGroup" />
 
+    <!-- Sauce RadioGroup -->
     <RadioGroup
         android:id="@+id/SauceRadioGroup"
         android:layout_width="wrap_content"
@@ -147,9 +143,6 @@
     </RadioGroup>
 
     <!-- Toppings Label -->
-
-    <!-- Toppings Checkboxes -->
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -162,6 +155,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SauceRadioGroup" />
 
+    <!-- Toppings Checkboxes -->
     <CheckBox
         android:id="@+id/PepperoniCheckBox"
         android:layout_width="wrap_content"
@@ -213,9 +207,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Order Button -->
-
-    <!-- Total Price -->
-
     <Button
         android:id="@+id/orderbutton"
         android:layout_width="wrap_content"
@@ -228,6 +219,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SausageCheckBox" />
 
+    <!-- Total Price Text -->
     <TextView
         android:id="@+id/Totalprice"
         android:layout_width="wrap_content"
@@ -236,5 +228,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Toast Container (Optional) -->
+    <FrameLayout
+        android:id="@+id/custom_toast_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
