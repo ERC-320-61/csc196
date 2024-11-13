@@ -3,3 +3,4 @@ uvicorn                 # ASGI server for FastAPI
 firebase-admin          # Firebase Admin SDK for Firebase authentication
 pyjwt                   # JWT encoding and decoding
 passlib[bcrypt]         # Password hashing (bcrypt for secure password storage)
+python-dotenv           # For loading environment variables from .env file
