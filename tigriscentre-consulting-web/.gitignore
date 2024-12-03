@@ -1,2 +1,8 @@
-# Ignore environment files
+# Ignore log files
+logs/
+
+# Ignore Firebase credentials JSON file
+*.json
+
+# Ignore environment variable files
 .env

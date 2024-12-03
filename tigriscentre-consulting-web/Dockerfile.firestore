@@ -1,0 +1,18 @@
+# Use the Google Cloud SDK as the base image
+FROM google/cloud-sdk:latest
+
+# Install Java for Firestore Emulator
+RUN apt-get update && apt-get install -y openjdk-17-jre && apt-get clean
+
+# Set working directory for Firestore Emulator
+WORKDIR /firestore-emulator
+
+# Expose the Firestore Emulator port
+EXPOSE 8080
+
+# Default command to run the Firestore Emulator
+CMD ["gcloud", "beta", "emulators", "firestore", "start", "--host-port=0.0.0.0:8080"]
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -f http://localhost:8080 || exit 1
+

@@ -1,6 +1,11 @@
-fastapi                 # FastAPI framework
-uvicorn                 # ASGI server for FastAPI
-firebase-admin          # Firebase Admin SDK for Firebase authentication
-pyjwt                   # JWT encoding and decoding
-passlib[bcrypt]         # Password hashing (bcrypt for secure password storage)
-python-dotenv           # For loading environment variables from .env file
+fastapi                 # Framework for building APIs.
+uvicorn                 # ASGI server to run FastAPI apps.
+python-dotenv           # For loading environment variables from .env files.
+firebase-admin          # Firebase SDK for managing Firestore, Authentication, etc.
+pydantic[email]         # Data validation and settings management, with email validation support.
+python-multipart        # Required for form data (e.g., OAuth2PasswordRequestForm).
+python-jose             # For handling JSON Web Tokens (JWT).
+email-validator         # For email validation in FastAPI models.
+google-cloud-firestore  # Client library for interacting with Firestore.
+click                   # Dependency of `uvicorn` for CLI utilities.
+python-json-logger      # Formats logs as JSON for structured logging and easy integration with log tools.
