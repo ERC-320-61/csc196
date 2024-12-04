@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./New/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - "8000:8000"
     env_file:

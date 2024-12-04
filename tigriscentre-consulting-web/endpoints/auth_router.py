@@ -23,8 +23,6 @@ FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
 class SignUpRequest(BaseModel):
     email: EmailStr
     password: str
-    name: str
-    profile_image: str = None  # Optional field for profile image
 
 
 class SignInResponse(BaseModel):
@@ -67,19 +65,25 @@ def verify_firebase_user_password(email: str, password: str):
 @router.post("/signup", response_model=dict)
 async def sign_up(user_data: SignUpRequest):
     try:
-        user = admin_auth.create_user(  # Corrected to use `admin_auth`
+        # Create user in Firebase Authentication
+        user = admin_auth.create_user(
             email=user_data.email,
             password=user_data.password,
-            display_name=user_data.name,
-            photo_url=user_data.profile_image,
         )
-        logger.info(f"User created successfully: {user.uid}")
+        logger.info(f"User created successfully in Firebase Authentication: {user.uid}")
+
         return {"message": "User created successfully", "user_id": user.uid}
     except firebase_exceptions.FirebaseError as e:
-        logger.error(f"Error creating user: {str(e)}")
+        logger.error(f"Error creating user in Firebase Authentication: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error creating user: {str(e)}",
+            detail=f"Error creating user in Firebase Authentication: {str(e)}",
+        )
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected error occurred while creating the user.",
         )
 
 
