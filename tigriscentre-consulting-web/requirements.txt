@@ -9,3 +9,5 @@ email-validator         # For email validation in FastAPI models.
 google-cloud-firestore  # Client library for interacting with Firestore.
 click                   # Dependency of `uvicorn` for CLI utilities.
 python-json-logger      # Formats logs as JSON for structured logging and easy integration with log tools.
+pyrebase4               # Python wrapper for Firebase's REST API, enabling authentication, database, and storage operations.
+pytest                  # Testing framework for writing unit and functional tests.

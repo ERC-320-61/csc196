@@ -1,14 +1,12 @@
-version: '3.9'
-
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./New/Dockerfile
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - .env  # Use the .env file in the current directory
     environment:
       - FIRESTORE_EMULATOR_HOST=firestore_emulator:8080
     volumes:
@@ -26,11 +24,11 @@ services:
   firestore_emulator:
     build:
       context: .
-      dockerfile: Dockerfile.firestore
+      dockerfile: ./Dockerfile.firestore
     ports:
       - "8080:8080"
     env_file:
-      - .env
+      - .env  # Use the .env file in the current directory
     volumes:
       - ./logs:/app/logs  # Optional: Map logs directory for the emulator if needed
     restart: unless-stopped

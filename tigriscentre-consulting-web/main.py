@@ -21,6 +21,8 @@ from endpoints import (
 # Load environment variables
 load_dotenv()
 
+print("FIREBASE_API_KEY:", os.getenv("FIREBASE_API_KEY"))
+
 # Initialize FastAPI application
 app = FastAPI(
     title="Tigris Centre Consulting API",

@@ -7,12 +7,17 @@ Defines API endpoints for user authentication and sign-up.
 from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
-from firebase_admin import auth, exceptions as firebase_exceptions
+from firebase_admin import auth as admin_auth, exceptions as firebase_exceptions
 from utils.auth_utils import create_access_token  # Import only what is needed
 from logging_config import logger  # Centralized logging
+import os
+import requests
 
 # Initialize router
 router = APIRouter()
+
+# Firebase API Key (required for REST API password authentication)
+FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
 
 # Models for input and response validation
 class SignUpRequest(BaseModel):
@@ -28,11 +33,41 @@ class SignInResponse(BaseModel):
     expires_in: int
 
 
+# Helper Function: Verify Firebase User Password Using REST API
+def verify_firebase_user_password(email: str, password: str):
+    """
+    Verifies the user's email and password using Firebase Authentication REST API.
+
+    Args:
+        email (str): User's email.
+        password (str): User's password.
+
+    Returns:
+        dict: Firebase user details on successful authentication.
+    """
+    url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_API_KEY}"
+    payload = {
+        "email": email,
+        "password": password,
+        "returnSecureToken": True
+    }
+
+    response = requests.post(url, json=payload)
+    if response.status_code == 200:
+        return response.json()  # Firebase returns user details, including `localId` and `idToken`.
+    else:
+        logger.error(f"Firebase authentication failed: {response.json()}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=response.json().get("error", {}).get("message", "Invalid email or password"),
+        )
+
+
 # Endpoint: Sign up a new user
-@router.post("/auth/signup", response_model=dict)
+@router.post("/signup", response_model=dict)
 async def sign_up(user_data: SignUpRequest):
     try:
-        user = auth.create_user(
+        user = admin_auth.create_user(  # Corrected to use `admin_auth`
             email=user_data.email,
             password=user_data.password,
             display_name=user_data.name,
@@ -49,29 +84,27 @@ async def sign_up(user_data: SignUpRequest):
 
 
 # Endpoint: Sign in a user
-@router.post("/auth/signin", response_model=SignInResponse)
+@router.post("/signin", response_model=SignInResponse)
 async def sign_in(form_data: OAuth2PasswordRequestForm = Depends()):
     try:
-        # Fetch user by email
-        user = auth.get_user_by_email(form_data.username)
+        # Authenticate user using REST API
+        firebase_user = verify_firebase_user_password(form_data.username, form_data.password)
 
-        # Verify password (Placeholder logic)
-        if form_data.password != "firebase_password_placeholder":
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid credentials",
-            )
+        # Validate token using Firebase Admin SDK
+        id_token = firebase_user["idToken"]
+        decoded_token = admin_auth.verify_id_token(id_token)
 
-        # Create JWT token
-        access_token = create_access_token(data={"sub": user.uid, "email": user.email})
-        logger.info(f"User signed in successfully: {user.uid}")
+        # Generate JWT token for API usage
+        access_token = create_access_token(data={"sub": decoded_token["uid"], "email": decoded_token["email"]})
+
         return SignInResponse(
             access_token=access_token,
-            expires_in=30,  # Default expiration in minutes
+            token_type="bearer",
+            expires_in=30 * 60  # Token expiration in seconds
         )
-    except firebase_exceptions.FirebaseError as e:
-        logger.error(f"Authentication failed for user {form_data.username}: {str(e)}")
+    except Exception as e:
+        logger.error(f"Error in sign-in: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authentication failed",
+            detail="Invalid credentials or token validation failed."
         )

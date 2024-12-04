@@ -1,5 +1,5 @@
 # Ignore log files
-logs/
+../logs/
 
 # Ignore Firebase credentials JSON file
 *.json

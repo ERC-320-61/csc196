@@ -30,11 +30,15 @@ def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     try:
         to_encode = data.copy()
         expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-        to_encode.update({"exp": expire})
+        to_encode.update({"exp": expire})  # Add expiration claim
+        logger.debug(f"Creating token for payload: {to_encode}")
         return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     except Exception as e:
         logger.error(f"Error creating JWT token: {e}")
-        raise
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error generating authentication token."
+        )
 
 
 def get_current_user(token: str) -> dict:
@@ -53,12 +57,26 @@ def get_current_user(token: str) -> dict:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
-        if user_id is None:
+        email = payload.get("email")
+        exp = payload.get("exp")
+
+        if user_id is None or email is None:
+            logger.warning("Token payload missing 'sub' or 'email'")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid authentication credentials",
             )
-        return {"username": user_id, "email": payload.get("email")}
+
+        # Check token expiration
+        if exp and datetime.utcfromtimestamp(exp) < datetime.utcnow():
+            logger.warning("Token has expired")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token has expired",
+            )
+
+        logger.info(f"Authenticated user: {user_id}")
+        return {"username": user_id, "email": email}
     except JWTError as e:
         logger.error(f"JWT validation failed: {str(e)}")
         raise HTTPException(
