@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Pizza Place"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+    <!-- Pizza Image -->
+    <ImageView
+        android:id="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        android:layout_width="202dp"
+        android:layout_height="181dp"
+        android:contentDescription="Pizza Image"
+        android:src="@drawable/pizza"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <!-- Email Input Field -->
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="357dp" />
+
+
+    <!-- Password Input Field -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your password"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="442dp" />
+
+    <!-- Sign in button -->
+    <Button
+        android:id="@+id/btn_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Sign In"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="516dp" />
+
+
+
+    <!-- MS Sign-In Image Button (Smaller and same size as Google) -->
+
+
+    <!-- Google Sign-In Image Button (Smaller and same size as MS) -->
+    <ImageButton
+        android:id="@+id/btn_sign_in_ms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        android:layout_width="33dp"
+        android:layout_height="31dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="Sign in with Microsoft"
+        android:scaleType="centerInside"
+        android:src="@drawable/MS"
+        tools:layout_editor_absoluteX="216dp"
+        tools:layout_editor_absoluteY="573dp" />
+
+    <ImageButton
+        android:id="@+id/btn_sign_in_google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="33dp"
+        android:layout_height="31dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="Sign in with Google"
+        android:scaleType="centerInside"
+        android:src="@drawable/google"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="573dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

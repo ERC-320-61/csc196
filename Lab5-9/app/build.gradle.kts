@@ -34,6 +34,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,9 +62,14 @@ dependencies {
     // Add Firebase Analytics as an example
     implementation("com.google.firebase:firebase-analytics")
 
-    // Add any other Firebase services you need
+    // Firebase Authentication
     implementation("com.google.firebase:firebase-auth")
+
+    // Firebase Firestore (optional, uncomment if using Firestore)
     // implementation("com.google.firebase:firebase-firestore")
+
+    // Google Sign-In SDK
+    implementation("com.google.android.gms:play-services-auth:20.0.1")
 
     // Existing dependencies
     implementation(libs.androidx.core.ktx)
@@ -77,6 +83,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.appcompat)
     implementation(libs.firebase.firestore.ktx)
+
+    // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

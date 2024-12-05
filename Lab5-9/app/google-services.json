@@ -12,7 +12,12 @@
           "package_name": "com.example.lab5"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "223288835757-57tlestdp6bin6jg475f9tn3138e9a3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCN4qGWZWRhDO_awbRH4ONQLn1LzcmQ3iM"
