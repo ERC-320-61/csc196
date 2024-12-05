@@ -1,4 +1,4 @@
-package com.example.lab5
+package com.csc195.pizza_final
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
@@ -45,12 +39,6 @@ class MainActivity : AppCompatActivity() {
     // Firestore instance for saving orders
     private val db = FirebaseFirestore.getInstance()
 
-    // Google sign-in request code
-    private val RC_SIGN_IN = 9001
-
-    // Google Sign-In client
-    private lateinit var googleSignInClient: GoogleSignInClient
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -77,69 +65,21 @@ class MainActivity : AppCompatActivity() {
         // Initialize Firebase Auth for user authentication
         auth = FirebaseAuth.getInstance()
 
-        // Initialize Google Sign-In options
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // Use your OAuth Client ID here
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        // Check if the user is already signed in; if not, show sign-in screen
+        // Check if the user is already signed in; if not, redirect to SignInActivity
         if (auth.currentUser == null) {
-            signInWithGoogle()
+            // Redirect to the SignInActivity if the user is not signed in
+            val signInIntent = Intent(this, SignInActivity::class.java)
+            startActivity(signInIntent)
+            finish() // Finish MainActivity to prevent it from being displayed behind the sign-in screen
         } else {
             Log.d("MainActivity", "User already signed in: ${auth.currentUser?.email}")
             enableUI() // Enable UI elements if the user is signed in
-        }
-
-        // Set up the Google sign-in button
-        findViewById<View>(R.id.btn_google_sign_in).setOnClickListener {
-            signInWithGoogle()
         }
 
         // Set up the "Place Your Order" button logic
         findViewById<View>(R.id.orderbutton).setOnClickListener {
             onPlaceOrderButtonClicked(it)
         }
-    }
-
-    // Start Google sign-in process
-    private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    // Handle Google sign-in result
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    firebaseAuthWithGoogle(account)
-                }
-            } catch (e: ApiException) {
-                Log.w("MainActivity", "Google sign-in failed", e)
-                Toast.makeText(this, "Google sign-in failed.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    // Authenticate with Firebase using Google credentials
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d("MainActivity", "signInWithCredential:success")
-                    enableUI() // Enable UI after successful login
-                } else {
-                    Log.w("MainActivity", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                }
-            }
     }
 
     // Enable all UI elements once the user is signed in

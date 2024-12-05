@@ -1,4 +1,4 @@
-package com.example.lab5.ui.theme
+package com.csc195.pizza_final.ui.theme
 
 import android.app.Activity
 import android.os.Build

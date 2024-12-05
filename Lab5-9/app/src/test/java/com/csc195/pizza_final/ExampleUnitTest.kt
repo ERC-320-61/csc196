@@ -1,4 +1,4 @@
-package com.example.lab5
+package com.csc195.pizza_final
 
 import org.junit.Test
 

@@ -1,8 +1,10 @@
-package com.example.lab5
+package com.csc195.pizza_final
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,12 @@ class SignInActivity : AppCompatActivity() {
         val msSignInButton = findViewById<ImageButton>(R.id.btn_sign_in_ms)
         msSignInButton.setOnClickListener {
             triggerMicrosoftSignIn()
+        }
+
+        // Set up the email/password sign-in button click listener
+        val signInButton = findViewById<Button>(R.id.btn_sign_in)
+        signInButton.setOnClickListener {
+            signInWithEmailPassword()
         }
     }
 
@@ -129,16 +137,47 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // Sign in with Email and Password
+    private fun signInWithEmailPassword() {
+        val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
+        val password = findViewById<EditText>(R.id.editTextPassword).text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign-in success
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    // Sign-in failure
+                    Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
     // Update the UI with the user's information
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             // Proceed to the next screen or show user information
             Toast.makeText(this, "Welcome ${user.displayName}", Toast.LENGTH_SHORT).show()
-            // Navigate to the next screen
+            // Navigate to the next screen (MainActivity)
+            navigateToMain()
         } else {
             // Show a message to the user
             Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // Navigate to MainActivity
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)  // Start MainActivity
+        finish()  // Close SignInActivity to remove it from the stack
     }
 
     // Sign out the user

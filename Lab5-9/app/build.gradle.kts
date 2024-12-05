@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lab5"
+    namespace = "com.csc195.pizza_final"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lab5"
+        applicationId = "com.csc195.pizza_final"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
