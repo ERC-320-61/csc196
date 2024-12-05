@@ -80,6 +80,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.orderbutton).setOnClickListener {
             onPlaceOrderButtonClicked(it)
         }
+
+        // Set up the "Sign Out" button logic
+        findViewById<View>(R.id.signOutButton).setOnClickListener {
+            onSignOutButtonClicked(it)
+        }
     }
 
     // Enable all UI elements once the user is signed in
@@ -195,5 +200,16 @@ class MainActivity : AppCompatActivity() {
             pestoRadio.isChecked -> "Pesto"
             else -> "None"
         }
+    }
+
+    // This function is called when the "Sign Out" button is clicked
+    private fun onSignOutButtonClicked(view: View) {
+        auth.signOut()
+        Toast.makeText(this, "Signed out successfully.", Toast.LENGTH_SHORT).show()
+
+        // Redirect to the SignInActivity after sign-out
+        val signInIntent = Intent(this, SignInActivity::class.java)
+        startActivity(signInIntent)
+        finish() // Close MainActivity
     }
 }
