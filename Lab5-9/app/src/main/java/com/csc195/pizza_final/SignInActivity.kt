@@ -66,9 +66,10 @@ class SignInActivity : AppCompatActivity() {
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
+                    .setFilterByAuthorizedAccounts(false) // Allow new accounts
                     .setServerClientId(getString(R.string.your_web_client_id)) // Replace with your server's client ID
-                    .setFilterByAuthorizedAccounts(true)
-                    .build())
+                    .build()
+            )
             .build()
 
         // Begin Google sign-in process
@@ -92,7 +93,8 @@ class SignInActivity : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 // Handle failure to start sign-in flow
-                Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "Google One Tap Sign-In Failed", exception)
+                Toast.makeText(this, "Sign-In Error: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
     }
 

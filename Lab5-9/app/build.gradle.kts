@@ -66,7 +66,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
 
     // Firebase Firestore (optional, uncomment if using Firestore)
-    // implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-firestore")
 
     // Google Sign-In SDK
     implementation("com.google.android.gms:play-services-auth:20.0.1")

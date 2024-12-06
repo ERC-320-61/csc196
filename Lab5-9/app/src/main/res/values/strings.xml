@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Lab5</string>
-    <string name="default_web_client_id">223288835757-57tlestdp6bin6jg475f9tn3138e9a3k.apps.googleusercontent.com</string>  <!-- Correct Web Client ID -->
-    <string name="your_web_client_id">223288835757-57tlestdp6bin6jg475f9tn3138e9a3k.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">389270072387-6nibiekpeslt0q8n5qsrsk0ei3d2q1ip.apps.googleusercontent.com</string>  <!-- Correct Web Client ID -->
+    <string name="your_web_client_id">389270072387-6nibiekpeslt0q8n5qsrsk0ei3d2q1ip.apps.googleusercontent.com</string>
 </resources>
